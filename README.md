@@ -23,10 +23,9 @@ Add TwitchKit as a package dependency in Xcode:
 
 ### Usage
 
-Here’s how to connect to Twitch chat and listen for messages:
+Here's how to connect to Twitch chat and listen for messages:
 
 ```swift
-
 import TwitchKit
 
 let twitch = TwitchKit()
@@ -40,7 +39,7 @@ twitch.onConnect = {
 }
 
 twitch.onMessage = { message in
-    print("\(message.displayName): \(message.message)")
+    print("\(message.author.displayName): \(message.content)")
 }
 
 twitch.onError = { error in

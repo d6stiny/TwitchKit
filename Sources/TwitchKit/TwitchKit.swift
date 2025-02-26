@@ -227,12 +227,14 @@ public class TwitchKit {
             prefix: prefix,
             command: command,
             params: params,
-            message: message,
-            username: username,
+            content: message,
+            author: Author(
+                username: username,
+                displayName: tags["display-name"] ?? username,
+                color: tags["color"] ?? "",
+                badges: parseBadges(tags["badges"] ?? "")
+            ),
             channel: channel,
-            displayName: tags["display-name"] ?? username,
-            color: tags["color"] ?? "",
-            badges: parseBadges(tags["badges"] ?? ""),
             emotes: parseEmotes(tags["emotes"] ?? ""),
             id: tags["id"] ?? "",
             timestamp: parseTimestamp(tags["tmi-sent-ts"])
