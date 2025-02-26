@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a Twitch emote in the message
-public struct TwitchEmote {
+public struct TwitchEmote: Sendable {
     public let id: String
     public let startIndex: Int
     public let endIndex: Int

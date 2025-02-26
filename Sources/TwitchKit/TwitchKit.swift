@@ -1,7 +1,7 @@
 import Foundation
 
 /// A Swift library for connecting to Twitch chat and receiving messages in real time
-public class TwitchKit {
+public class TwitchKit: @unchecked Sendable {
     // MARK: - Properties
     private var connection: URLSessionWebSocketTask?
     private var session: URLSession?
@@ -15,10 +15,10 @@ public class TwitchKit {
     private var channel: String = ""
     
     // Callbacks
-    public var onConnect: (() -> Void)?
-    public var onDisconnect: ((Error?) -> Void)?
-    public var onMessage: ((TwitchChatMessage) -> Void)?
-    public var onError: ((Error) -> Void)?
+    public var onConnect: (@Sendable () -> Void)?
+    public var onDisconnect: (@Sendable (Error?) -> Void)?
+    public var onMessage: (@Sendable (TwitchChatMessage) -> Void)?
+    public var onError: (@Sendable (Error) -> Void)?
     
     // MARK: - Initialization
     public init() {
@@ -147,7 +147,7 @@ public class TwitchKit {
         
         // Call the onMessage callback with the parsed message
         if parsedMessage.command == "PRIVMSG" {
-            queue.async { [weak self] in
+            queue.async { @Sendable [weak self] in
                 self?.onMessage?(parsedMessage)
             }
         }
@@ -293,7 +293,7 @@ public class TwitchKit {
     }
     
     private func startPingTimer() {
-        pingTimer = Timer.scheduledTimer(withTimeInterval: 300, repeats: true) { [weak self] _ in
+        pingTimer = Timer.scheduledTimer(withTimeInterval: 300, repeats: true) { @Sendable [weak self] _ in
             self?.sendMessage("PING :tmi.twitch.tv")
         }
     }

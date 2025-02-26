@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a parsed message from Twitch chat
-public struct TwitchChatMessage {
+public struct TwitchChatMessage: Sendable {
     public let raw: String
     public let tags: [String: String]
     public let prefix: String
@@ -16,7 +16,7 @@ public struct TwitchChatMessage {
     public let timestamp: Date?
 }
 
-public struct Author {
+public struct Author: Sendable {
     public let username: String
     public let displayName: String
     public let color: String
